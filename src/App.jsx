@@ -1,17 +1,17 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import { useState } from 'react';
+
+// Importación de datos iniciales en JavaScript
+import { INITIAL_GAMES, CATEGORIAS } from './data/juegos';
+
+
+// Importación de estilos personalizados
+import './App.css';
+
 
 function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-
-    </>
-  )
+  // 1. ESTADO: Lista de videojuegos en la tienda
+ 
+  
 }
 
-export default App
+export default App;
