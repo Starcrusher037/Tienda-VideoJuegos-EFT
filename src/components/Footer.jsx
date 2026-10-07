@@ -1,10 +1,8 @@
 
 /**
- * ============================================================================
  * COMPONENTE: Footer
  * DESCRIPCIÓN: Pie de página del sitio web utilizando la etiqueta semántica
  * <footer> de HTML5 y maquetación con Bootstrap 5 Grid.
- * ============================================================================
  */
 export default function Footer() {
   const anioActual = new Date().getFullYear();

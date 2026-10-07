@@ -1,10 +1,7 @@
 
 /**
- * ============================================================================
- * COMPONENTE: Hero
  * DESCRIPCIÓN: Sección principal de bienvenida (Banner) utilizando HTML5 semántico
  * (<section>), Flexbox y Bootstrap 5 para un diseño responsivo e impactante.
- * ============================================================================
  */
 export default function Hero() {
   return (

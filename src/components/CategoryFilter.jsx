@@ -1,10 +1,7 @@
 
 /**
- * ============================================================================
- * COMPONENTE: CategoryFilter
  * DESCRIPCIÓN: Componente encargado del filtrado dinámico de videojuegos
  * por categoría y por término de búsqueda.
- * ============================================================================
  * @param {Object} props
  * @param {string[]} props.categorias - Arreglo con las categorías disponibles.
  * @param {string} props.categoriaSeleccionada - Categoría actualmente seleccionada.

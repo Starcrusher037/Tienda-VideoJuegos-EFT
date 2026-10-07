@@ -1,15 +1,13 @@
-
 /**
- * ============================================================================
- * COMPONENTE: GameDetailModal
  * DESCRIPCIÓN: Modal para mostrar la información completa de un videojuego
- * seleccionado por el usuario.
- * ============================================================================
+ * seleccionado por el usuario y permitir agregarlo al carrito de compras.
+ 
  * @param {Object} props
  * @param {Object|null} props.juego - Objeto con datos del juego seleccionado.
  * @param {Function} props.onClose - Función para cerrar el modal.
+ * @param {Function} props.onAgregarAlCarrito - Callback para sumar el juego al carrito.
  */
-export default function GameDetailModal({ juego, onClose }) {
+export default function GameDetailModal({ juego, onClose, onAgregarAlCarrito }) {
   if (!juego) return null;
 
   const formatearPrecio = (valor) => {
@@ -18,6 +16,11 @@ export default function GameDetailModal({ juego, onClose }) {
       currency: 'CLP',
       maximumFractionDigits: 0
     }).format(valor);
+  };
+
+  const handleAgregar = () => {
+    onAgregarAlCarrito(juego);
+    onClose();
   };
 
   return (
@@ -74,7 +77,7 @@ export default function GameDetailModal({ juego, onClose }) {
 
               <div className="border-top border-secondary border-opacity-25 pt-3 mt-2 d-flex align-items-center justify-content-between">
                 <div>
-                  <small className="text-secondary d-block">Precio Especial:</small>
+                  <small className="text-secondary d-block">Precio:</small>
                   <span className="fs-3 fw-bold text-success">
                     {formatearPrecio(juego.precio)}
                   </span>
@@ -83,12 +86,9 @@ export default function GameDetailModal({ juego, onClose }) {
                   <button
                     type="button"
                     className="btn btn-primary px-4 fw-semibold"
-                    onClick={() => {
-                      alert(`¡"${juego.nombre}" ha sido añadido a tu carrito virtual de compras!`);
-                      onClose();
-                    }}
+                    onClick={handleAgregar}
                   >
-                    <i className="bi bi-cart-plus me-1"></i> Comprar
+                    <i className="bi bi-cart-plus me-1"></i> Añadir al Carrito
                   </button>
                   <button
                     type="button"

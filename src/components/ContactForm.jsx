@@ -1,11 +1,8 @@
 import { useState } from 'react';
 
 /**
- * ============================================================================
- * COMPONENTE: ContactForm
  * DESCRIPCIÓN: Sección semántica de contacto con formulario interactivo y
  * validación completa en JavaScript utilizando Bootstrap 5.
- * ============================================================================
  */
 export default function ContactForm() {
   // Estado local para los valores de los campos del formulario
