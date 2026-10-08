@@ -1,4 +1,5 @@
 import GameCard from './GameCard';
+import Spinner from './Spinner';
 
 /**
  * ============================================================================
@@ -15,15 +16,22 @@ import GameCard from './GameCard';
  * @param {Function} props.onAgregarAlCarrito - Callback para añadir un juego al carrito.
  * @param {Function} props.onVerDetalle - Callback para ver el modal con detalle.
  * @param {Function} props.onResetFiltros - Callback para limpiar filtros si no hay resultados.
- * @param {Array} props.carrito - Arreglo del carrito actual para verificar si un juego ya fue agregado.
+ * @param {Array} [props.carrito=[]] - Arreglo del carrito actual para verificar si un juego ya fue agregado.
+ * @param {boolean} [props.cargando=false] - Indica si la lista se encuentra en estado de carga.
  */
 export default function GameList({
   juegos,
   onAgregarAlCarrito,
   onVerDetalle,
   onResetFiltros,
-  carrito = []
+  carrito = [],
+  cargando = false
 }) {
+  // Manejo de estado de carga
+  if (cargando) {
+    return <Spinner mensaje="Cargando videojuegos..." />;
+  }
+
   // Manejo de estado vacío: cuando no se encuentran juegos con el filtro aplicado
   if (!juegos || juegos.length === 0) {
     return (

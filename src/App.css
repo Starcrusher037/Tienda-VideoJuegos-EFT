@@ -94,3 +94,9 @@
 .max-w-600 {
   max-width: 600px;
 }
+
+/* Estilo para el Spinner de carga Gamer */
+.spinner-border.text-primary {
+  filter: drop-shadow(0 0 10px rgba(13, 110, 253, 0.6));
+}
+

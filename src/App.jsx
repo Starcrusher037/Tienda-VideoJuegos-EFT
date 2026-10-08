@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { INITIAL_GAMES, CATEGORIAS } from './data/games';
+import { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import CategoryFilter from './components/CategoryFilter';
@@ -8,12 +7,29 @@ import ContactForm from './components/ContactForm';
 import Footer from './components/Footer';
 import CartModal from './components/CartModal';
 import GameDetailModal from './components/GameDetailModal';
+import Spinner from './components/Spinner';
 import './App.css';
 
+// Lista de categorías predeterminadas como fallback
+const CATEGORIAS_FALLBACK = [
+  'Todas',
+  'Acción',
+  'Aventura',
+  'RPG',
+  'Estrategia',
+  'Deportes',
+  'Terror'
+];
 
 function App() {
-  // 1. ESTADO: Catálogo de videojuegos cargados desde el archivo de datos JavaScript
-  const [juegos] = useState(INITIAL_GAMES);
+  // 1. ESTADO: Catálogo de videojuegos cargados mediante fetch desde el archivo JSON
+  const [juegos, setJuegos] = useState([]);
+
+  // Estado de carga para el Spinner
+  const [cargando, setCargando] = useState(true);
+
+  // Estado para capturar posibles errores en la petición fetch
+  const [errorCarga, setErrorCarga] = useState(null);
 
   // 2. ESTADO DINÁMICO: Lista del Carrito de Compras
   // Inicia vacía ([]) y cambia dinámicamente al agregar o eliminar videojuegos
@@ -33,6 +49,42 @@ function App() {
 
   // 7. ESTADO: Mensaje de notificación temporal (Toast flotante)
   const [notificacion, setNotificacion] = useState(null);
+
+  /**
+   * FUNCIÓN ASÍNCRONA: Carga los videojuegos desde el archivo JSON mediante fetch.
+   * Maneja los estados de carga (spinner), datos recibidos y captura de errores.
+   */
+  const cargarJuegos = async (isRetry = false) => {
+    if (isRetry) {
+      setCargando(true);
+      setErrorCarga(null);
+    }
+
+    try {
+      // Petición HTTP asíncrona mediante fetch a la ruta pública del JSON
+      const respuesta = await fetch('./data/games.json');
+
+      if (!respuesta.ok) {
+        throw new Error(`Error HTTP: ${respuesta.status} - ${respuesta.statusText}`);
+      }
+
+      const datos = await respuesta.json();
+      setJuegos(datos);
+    } catch (err) {
+      console.error('Error al obtener los videojuegos con fetch:', err);
+      setErrorCarga('No se pudo cargar el catálogo de videojuegos. Por favor, reintenta más tarde.');
+    } finally {
+      setCargando(false);
+    }
+  };
+
+  /**
+   * EFECTO: Ejecuta la lectura del JSON una sola vez cuando el componente se monta.
+   */
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    cargarJuegos();
+  }, []);
 
   /**
    * Muestra un mensaje temporal de retroalimentación al usuario.
@@ -92,6 +144,15 @@ function App() {
     setCategoriaSeleccionada('Todas');
     setBusqueda('');
   };
+
+  /**
+   * CATEGORÍAS DISPONIBLES:
+   * Se obtienen dinámicamente de los videojuegos leídos del JSON,
+   * manteniendo 'Todas' como la primera opción o usando la lista por defecto.
+   */
+  const categorias = juegos.length > 0
+    ? ['Todas', ...Array.from(new Set(juegos.map((j) => j.categoria)))]
+    : CATEGORIAS_FALLBACK;
 
   /**
    * LÓGICA DE FILTRADO EN JAVASCRIPT:
@@ -174,7 +235,7 @@ function App() {
 
             {/* Componente de Filtro por Categorías y Búsqueda */}
             <CategoryFilter
-              categorias={CATEGORIAS}
+              categorias={categorias}
               categoriaSeleccionada={categoriaSeleccionada}
               onSeleccionarCategoria={setCategoriaSeleccionada}
               busqueda={busqueda}
@@ -182,14 +243,39 @@ function App() {
               totalResultados={juegosFiltrados.length}
             />
 
-            {/* Grilla responsiva de videojuegos */}
-            <GameList
-              juegos={juegosFiltrados}
-              onAgregarAlCarrito={handleAgregarAlCarrito}
-              onVerDetalle={(juego) => setJuegoSeleccionado(juego)}
-              onResetFiltros={handleResetFiltros}
-              carrito={carrito}
-            />
+            {/* 
+              ESTADOS CONDICIONALES DE LA VISTA:
+              1. Spinner de carga: Mientras fetch está en proceso (cargando === true).
+              2. Alerta de error: Si la petición fetch falló o el archivo no fue encontrado.
+              3. Grilla de videojuegos: Se renderiza una vez que los datos fueron cargados.
+            */}
+            {cargando ? (
+              <Spinner mensaje="Cargando catálogo de videojuegos..." />
+            ) : errorCarga ? (
+              <div
+                className="alert alert-danger bg-danger bg-opacity-25 border-danger text-center p-4 rounded-4 my-4"
+                role="alert"
+              >
+                <i className="bi bi-exclamation-triangle-fill fs-2 text-danger d-block mb-2"></i>
+                <h5 className="text-white fw-bold">Error al cargar el catálogo</h5>
+                <p className="text-light mb-3">{errorCarga}</p>
+                <button
+                  type="button"
+                  className="btn btn-outline-light rounded-pill px-4"
+                  onClick={() => cargarJuegos(true)}
+                >
+                  <i className="bi bi-arrow-clockwise me-1"></i> Reintentar carga
+                </button>
+              </div>
+            ) : (
+              <GameList
+                juegos={juegosFiltrados}
+                onAgregarAlCarrito={handleAgregarAlCarrito}
+                onVerDetalle={(juego) => setJuegoSeleccionado(juego)}
+                onResetFiltros={handleResetFiltros}
+                carrito={carrito}
+              />
+            )}
           </div>
         </section>
 
