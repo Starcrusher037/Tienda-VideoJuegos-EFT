@@ -37,7 +37,7 @@ xxx/
 │   ├── App.css                  # Estilos complementarios para tarjetas, animaciones y tema gamer
 │   ├── index.css                # Estilos globales y reset responsivo
 │   ├── data/
-│   │   └── games.js             # Objeto/arreglo JavaScript con los videojuegos disponibles y categorías
+│   │   └── games.json           # Archivo Json con los videojuegos disponibles y categorías
 │   └── components/
 │       ├── Navbar.jsx           # Barra de navegación semántica con badge contador del carrito
 │       ├── Hero.jsx             # Portada de bienvenida con llamados a la acción
@@ -48,6 +48,7 @@ xxx/
 │       ├── CartModal.jsx        # Modal del Carrito: lista dinámica que permite ver total y eliminar juegos
 │       ├── ContactForm.jsx      # Formulario de contacto hacia el administrador con validación y alertas
 │       └── Footer.jsx           # Pie de página semántico con enlaces y redes sociales
+│       └── Spinner.jsx          # Spinner de carga durante fetch en la carga de juegos
 ```
 
 ---
@@ -76,7 +77,7 @@ xxx/
 ##  Justificación de Requerimientos y Arquitectura
 
 1. **Catálogo de Videojuegos:**
-   - Se carga desde [`src/data/games.js`](src/data/games.js) cumpliendo con el requerimiento de alimentar los productos desde una estructura de datos externa.
+   - Se carga desde [`public/data/games.json`](public/data/games.json) cumpliendo con el requerimiento de alimentar los productos desde una estructura de datos externa.
 2. **Filtrado por Categoría:**
    - El usuario puede alternar entre categorías (Acción, Aventura, RPG, Estrategia, Deportes, Terror) o usar la barra de búsqueda en tiempo real.
 3. **Manejo Dinámico de la Lista (Estado en React):**
