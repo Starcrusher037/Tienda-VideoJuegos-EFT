@@ -1,13 +1,4 @@
-/**
- * ============================================================================
- * COMPONENTE: Spinner
- * DESCRIPCIÓN: Indicador visual de carga (loading spinner) estilizado con
- * Bootstrap 5 para proporcionar retroalimentación al usuario mientras
- * los datos de los videojuegos son leídos desde el archivo JSON mediante fetch.
- * ============================================================================
- * @param {Object} props
- * @param {string} [props.mensaje='Cargando videojuegos...'] - Mensaje descriptivo de carga.
- */
+
 export default function Spinner({ mensaje = 'Cargando videojuegos...' }) {
   return (
     <div

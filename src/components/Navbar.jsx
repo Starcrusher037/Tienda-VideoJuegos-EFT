@@ -1,15 +1,6 @@
 import { useState } from 'react';
 
 /**
- * ============================================================================
- * COMPONENTE: Navbar
- * DESCRIPCIÓN: Barra de navegación superior responsiva utilizando Bootstrap 5
- * y la etiqueta semántica <nav> dentro del <header>.
- * REQUERIMIENTOS:
- * - Paso 1: Barra de navegación con enlaces a secciones ("Inicio", "Catálogo", "Contacto").
- * - Paso 3: Modularización en componentes React y paso de información con props
- *   (contador del carrito de compras y control para abrir el modal del carrito).
- * ============================================================================
  * @param {Object} props
  * @param {number} props.totalCarrito - Cantidad de videojuegos actualmente en el carrito.
  * @param {Function} props.onOpenCart - Función para abrir el modal del carrito.

@@ -26,16 +26,16 @@ export default function Footer() {
             </p>
             {/* Redes sociales */}
             <div className="d-flex gap-3 fs-5">
-              <a href="#inicio" className="text-secondary hover-text-primary" aria-label="Discord">
+              <a href="https://discord.com/" className="text-secondary hover-text-primary" aria-label="Discord">
                 <i className="bi bi-discord"></i>
               </a>
-              <a href="#inicio" className="text-secondary hover-text-primary" aria-label="Twitch">
+              <a href="https://www.twitch.tv/" className="text-secondary hover-text-primary" aria-label="Twitch">
                 <i className="bi bi-twitch"></i>
               </a>
-              <a href="#inicio" className="text-secondary hover-text-primary" aria-label="YouTube">
+              <a href="https://www.youtube.com/" className="text-secondary hover-text-primary" aria-label="YouTube">
                 <i className="bi bi-youtube"></i>
               </a>
-              <a href="#inicio" className="text-secondary hover-text-primary" aria-label="Instagram">
+              <a href="https://www.instagram.com/" className="text-secondary hover-text-primary" aria-label="Instagram">
                 <i className="bi bi-instagram"></i>
               </a>
             </div>

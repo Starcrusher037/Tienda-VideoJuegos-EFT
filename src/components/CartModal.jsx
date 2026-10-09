@@ -1,18 +1,10 @@
 import { useState } from 'react';
 
 /**
- * ============================================================================
- * COMPONENTE: CartModal
- * DESCRIPCIÓN: Modal interactivo del Carrito de Compras.
+ * Modal interactivo del Carrito de Compras.
  * Permite visualizar la lista de videojuegos seleccionados por el cliente,
  * ver el total acumulado en pesos chilenos (CLP), eliminar videojuegos
  * individualmente de la lista, o vaciar el carrito completo.
- *
- * REQUERIMIENTOS:
- * - Paso 3: "Utiliza el estado (state) para manejar la información de los videojuegos
- *   de forma dinámica, permitiendo agregar o eliminar videojuegos de la lista."
- * - Enfoque 100% de cara al usuario/cliente de una tienda online.
- * ============================================================================
  * @param {Object} props
  * @param {boolean} props.isOpen - Controla si el modal está visible en pantalla.
  * @param {Function} props.onClose - Función para cerrar el modal.
